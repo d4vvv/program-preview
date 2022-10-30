@@ -1,23 +1,16 @@
 import { Box, Flex, Hide, Text } from '@chakra-ui/react'
 import Image from 'next/image'
+import { Program } from '../types/Program'
 
 interface ProgramCardProps {
-  imgSrc: string
-  title: string
-  genres: string[]
-  playProviders: string[]
-  imdbRating?: number
+  program: Program
 }
 
-export const ProgramCard: React.FC<ProgramCardProps> = ({
-  imgSrc,
-  title,
-  genres,
-  playProviders,
-  imdbRating,
-}) => {
+export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   const playProvidersList =
-    playProviders.length === 0 ? 'No data' : playProviders.join(', ')
+    program.playProviders.length === 0
+      ? 'No data'
+      : program.playProviders.join(', ')
 
   return (
     <Flex gap={6} minW="100%" boxShadow="lg" p="4" rounded="md">
@@ -32,7 +25,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
           fill
           sizes="250px"
           style={{ objectFit: 'cover' }}
-          src={`${imgSrc}?width=500`}
+          src={`${program.imageLandscape}?width=500`}
         />
       </Box>
       <Flex direction="column" width="100%">
@@ -42,17 +35,17 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
           justify="space-between"
         >
           <Text fontSize={['xl', '3xl']} fontWeight="500">
-            {title}
+            {program.title}
           </Text>
           <Text>
             <Text as="span" fontWeight="700">
-              {imdbRating ?? 'Unknown'}
+              {program.imdb?.rating ?? 'Unknown'}
             </Text>{' '}
             IMDb
           </Text>
         </Flex>
         <Hide below="lg">
-          <Text textTransform="uppercase">{genres.join(', ')}</Text>
+          <Text textTransform="uppercase">{program.genres.join(', ')}</Text>
           <Text fontSize="lg">Streaming: {playProvidersList}</Text>
         </Hide>
       </Flex>

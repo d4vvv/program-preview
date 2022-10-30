@@ -1,14 +1,27 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Spinner, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { usePrograms } from '../hooks/usePrograms'
 import { ProgramTypeSelector } from './ProgramTypeSelector'
 import { IMDbSort } from './IMDbSort'
 import { ProgramList } from './ProgramList'
-import { ProgramType } from '../types/ProgramType'
+import { ProgramTypesEnum } from '../types/ProgramTypesEnum'
 
 export const ProgramPreview: React.FC = () => {
-  const [query, setQuery] = useState([ProgramType.MOVIE, ProgramType.SERIES])
-  const { data } = usePrograms({ query })
+  const [query, setQuery] = useState([
+    ProgramTypesEnum.MOVIE,
+    ProgramTypesEnum.SERIES,
+  ])
+  const { data, error } = usePrograms({ query })
+  const renderProgramList = () => {
+    if (typeof data === 'undefined' && !error) {
+      return <Spinner />
+    }
+    if (error) {
+      return <Text>An error has occured while fetching the data.</Text>
+    }
+    return <ProgramList programs={data.data} />
+  }
+
   return (
     <div>
       <Flex
@@ -23,7 +36,7 @@ export const ProgramPreview: React.FC = () => {
       </Flex>
       <Flex direction={['column', 'column', 'row']} gap="4" w="100%">
         <ProgramTypeSelector query={query} onSelectionChange={setQuery} />
-        <ProgramList programs={data?.data} />
+        {renderProgramList()}
       </Flex>
     </div>
   )

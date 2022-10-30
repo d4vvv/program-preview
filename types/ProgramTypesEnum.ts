@@ -1,4 +1,4 @@
-export enum ProgramType {
+export enum ProgramTypesEnum {
   MOVIE = 'movie',
   SERIES = 'series',
 }
