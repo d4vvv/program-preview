@@ -4,9 +4,10 @@ import { usePrograms } from '../hooks/usePrograms'
 import { ProgramTypeSelector } from './ProgramTypeSelector'
 import { IMDbSort } from './IMDbSort'
 import { ProgramList } from './ProgramList'
+import { ProgramType } from '../types/ProgramType'
 
 export const ProgramPreview: React.FC = () => {
-  const [query, setQuery] = useState('series,movie')
+  const [query, setQuery] = useState([ProgramType.MOVIE, ProgramType.SERIES])
   const { data } = usePrograms({ query })
   return (
     <div>

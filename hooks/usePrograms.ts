@@ -1,14 +1,15 @@
 import useSWR from 'swr'
+import { ProgramType } from '../types/ProgramType'
 
 interface useProgramsProps {
-  query: string
+  query: ProgramType[]
 }
 
 export const usePrograms = ({ query }: useProgramsProps) => {
-  const { data, ...swr } = useSWR(
-    `https://stage-api-frontend.tv.nu/programs?orderBy=views&programType=${query}`,
+  return useSWR(
+    `https://stage-api-frontend.tv.nu/programs?orderBy=views&programType=${query.join(
+      ','
+    )}`,
     null
   )
-
-  return { data, ...swr }
 }
