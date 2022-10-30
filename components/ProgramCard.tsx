@@ -2,6 +2,8 @@ import { Box, Flex, Hide, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Program } from '../types/Program'
 
+const maxImageSize = 250
+
 interface ProgramCardProps {
   program: Program
 }
@@ -12,6 +14,18 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
       ? 'No data'
       : program.playProviders.join(', ')
 
+  const getImageWithSize = (width: number) => {
+    return (
+      <Image
+        alt={`Image of ${program.title} movie`}
+        fill
+        sizes={`${width}px`}
+        style={{ objectFit: 'cover' }}
+        src={`${program.imageLandscape}?width=${width}`}
+      />
+    )
+  }
+
   return (
     <Flex gap={6} minW="100%" boxShadow="lg" p="4" rounded="md">
       <Box
@@ -20,13 +34,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
         h={['85px', '140px']}
         minW={['150px', '250px']}
       >
-        <Image
-          alt="image of movie"
-          fill
-          sizes="250px"
-          style={{ objectFit: 'cover' }}
-          src={`${program.imageLandscape}?width=500`}
-        />
+        {getImageWithSize(maxImageSize)}
       </Box>
       <Flex direction="column" width="100%">
         <Flex
