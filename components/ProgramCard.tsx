@@ -9,6 +9,7 @@ interface ProgramCardProps {
 }
 
 export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
+  console.log(program.genres)
   const playProvidersList =
     program.playProviders.length === 0
       ? 'No data'
@@ -53,7 +54,11 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
           </Text>
         </Flex>
         <Hide below="lg">
-          <Text textTransform="uppercase">{program.genres.join(', ')}</Text>
+          <Text textTransform="uppercase">
+            {program.genres
+              .filter((genre, idx) => program.genres.indexOf(genre) === idx)
+              .join(', ')}
+          </Text>
           <Text fontSize="lg">Streaming: {playProvidersList}</Text>
         </Hide>
       </Flex>
