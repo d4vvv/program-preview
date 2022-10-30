@@ -1,5 +1,5 @@
 import { Checkbox, Flex } from '@chakra-ui/react'
-import { SyntheticEvent } from 'react'
+import { useState } from 'react'
 
 interface CategoriesProps {
   query: string
@@ -7,34 +7,45 @@ interface CategoriesProps {
 }
 
 export const Categories: React.FC<CategoriesProps> = ({ query, setQuery }) => {
-  const handleSeriesCheckboxChange = (event: SyntheticEvent) => {
-    if (query.includes('series')) {
+  const [isSeriesCheckboxChecked, setSeriesCheckboxChecked] = useState(true)
+  const [isMoviesCheckboxChecked, setMoviesCheckboxChecked] = useState(true)
+
+  const handleSeriesCheckboxChange = () => {
+    if (isSeriesCheckboxChecked && isMoviesCheckboxChecked) {
+      setSeriesCheckboxChecked(false)
       setQuery(query.replace('series,', ''))
-    } else {
+    } else if (isMoviesCheckboxChecked) {
+      setSeriesCheckboxChecked(true)
       setQuery('series,' + query)
     }
   }
-  const handleMoviesCheckboxChange = (event: SyntheticEvent) => {
-    if (query.includes('movie')) {
-      setQuery(query.replace('movie', ''))
-    } else {
-      setQuery(query + 'movie')
+  const handleMoviesCheckboxChange = () => {
+    if (isMoviesCheckboxChecked && isSeriesCheckboxChecked) {
+      setMoviesCheckboxChecked(false)
+      setQuery(query.replace(',movie', ''))
+    } else if (isSeriesCheckboxChecked) {
+      setMoviesCheckboxChecked(true)
+      setQuery(query + ',movie')
     }
   }
 
   return (
-    <Flex direction="column" basis="10%">
+    <Flex direction={['row', 'column']} basis="10%" gap={[4, 1]}>
       <Checkbox
         colorScheme="orange"
         defaultChecked
-        onChange={(event) => handleSeriesCheckboxChange(event)}
+        size="lg"
+        isChecked={isSeriesCheckboxChecked}
+        onChange={() => handleSeriesCheckboxChange()}
       >
         Series
       </Checkbox>
       <Checkbox
         colorScheme="orange"
         defaultChecked
-        onChange={(event) => handleMoviesCheckboxChange(event)}
+        size="lg"
+        isChecked={isMoviesCheckboxChecked}
+        onChange={() => handleMoviesCheckboxChange()}
       >
         Movie
       </Checkbox>
