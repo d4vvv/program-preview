@@ -2,21 +2,12 @@ import useSWR from 'swr'
 
 interface useProgramsProps {
   query: string
-  perPage?: number
-  page?: number
 }
 
-export const usePrograms = ({
-  query,
-  perPage = 15,
-  page = 1,
-}: useProgramsProps) => {
+export const usePrograms = ({ query }: useProgramsProps) => {
   const { data, ...swr } = useSWR(
-    `/programs?query=${query.trim()}&perPage=${perPage}&page=${page}`,
-    null,
-    {
-      revalidateOnFocus: false,
-    }
+    `https://stage-api-frontend.tv.nu/programs?orderBy=views&programType=${query}`,
+    null
   )
 
   return { data, ...swr }

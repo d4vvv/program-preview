@@ -30,7 +30,7 @@ export const Categories: React.FC<CategoriesProps> = ({ query, setQuery }) => {
   }
 
   return (
-    <Flex direction={['row', 'column']} basis="10%" gap={[4, 1]}>
+    <Flex direction={['row', 'column']} basis="12%" gap={[4, 1]}>
       <Checkbox
         colorScheme="orange"
         defaultChecked
