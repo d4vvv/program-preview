@@ -1,3 +1,12 @@
+import { Flex } from '@chakra-ui/react'
+import { ProgramCard } from './ProgramCard'
+
 export const ProgramList: React.FC = () => {
-  return <div>Program List</div>
+  return (
+    <Flex>
+      <ProgramCard />
+      <ProgramCard />
+      <ProgramCard />
+    </Flex>
+  )
 }

@@ -8,7 +8,7 @@ export const ProgramPreview: React.FC = () => {
   return (
     <div>
       <p>Program Preview</p>
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row gap-4">
         <Categories />
         <ProgramList />
       </div>
