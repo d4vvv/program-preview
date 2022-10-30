@@ -1,6 +1,5 @@
-import { Box, Flex, Hide, Show, Text } from '@chakra-ui/react'
+import { Box, Flex, Hide, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useMemo } from 'react'
 
 interface ProgramCardProps {
   imgSrc: string
@@ -17,12 +16,8 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({
   playProviders,
   imdbRating,
 }) => {
-  const playProvidersList = useMemo(() => {
-    if (playProviders.length === 0) {
-      return 'No data'
-    }
-    return playProviders.join(', ')
-  }, [playProviders])
+  const playProvidersList =
+    playProviders.length === 0 ? 'No data' : playProviders.join(', ')
 
   return (
     <Flex gap={6} minW="100%" boxShadow="lg" p="4" rounded="md">
