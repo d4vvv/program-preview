@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { usePrograms } from '../hooks/usePrograms'
-import { Categories } from './Categories'
+import { ProgramTypeSelector } from './ProgramTypeSelector'
 import { IMDbSort } from './IMDbSort'
 import { ProgramList } from './ProgramList'
 
@@ -21,7 +21,7 @@ export const ProgramPreview: React.FC = () => {
         <IMDbSort />
       </Flex>
       <Flex direction={['column', 'column', 'row']} gap="4" w="100%">
-        <Categories query={query} setQuery={setQuery} />
+        <ProgramTypeSelector query={query} onSelectionChange={setQuery} />
         <ProgramList programs={data?.data} />
       </Flex>
     </div>
