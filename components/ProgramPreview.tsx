@@ -45,10 +45,7 @@ export const ProgramPreview: React.FC = () => {
         />
       </Flex>
       <Flex direction={['column', 'column', 'row']} gap="4" w="100%">
-        <ProgramTypeSelector
-          query={selectedProgramTypes}
-          onSelectionChange={setSelectedProgramTypes}
-        />
+        <ProgramTypeSelector onSelectionChange={setSelectedProgramTypes} />
         {renderProgramList()}
       </Flex>
     </div>

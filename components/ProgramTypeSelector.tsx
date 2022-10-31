@@ -1,58 +1,38 @@
-import { Checkbox, Flex } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Checkbox, Flex, useCheckboxGroup } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { ProgramType } from '../types/ProgramType'
 
 interface ProgramTypeSelectorProps {
-  query: ProgramType[]
   onSelectionChange(query: ProgramType[]): void
 }
 
 export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
-  query,
   onSelectionChange,
 }) => {
-  const [isSeriesCheckboxChecked, setSeriesCheckboxChecked] = useState(true)
-  const [isMoviesCheckboxChecked, setMoviesCheckboxChecked] = useState(true)
+  const { value: checkboxTypeValue, getCheckboxProps } = useCheckboxGroup({
+    defaultValue: [ProgramType.SERIES, ProgramType.MOVIE],
+  })
 
-  const handleCheckboxChange = (
-    type: ProgramType.MOVIE | ProgramType.SERIES
-  ) => {
-    if (isSeriesCheckboxChecked && isMoviesCheckboxChecked) {
-      if (type === ProgramType.MOVIE) {
-        setMoviesCheckboxChecked(false)
-      } else {
-        setSeriesCheckboxChecked(false)
-      }
-      onSelectionChange(query.filter((element) => element !== type))
-      return
-    }
-    if (type === ProgramType.MOVIE && isSeriesCheckboxChecked) {
-      setMoviesCheckboxChecked(true)
-      onSelectionChange([...query, ProgramType.MOVIE])
-      return
-    }
-    if (type === ProgramType.SERIES && isMoviesCheckboxChecked) {
-      setSeriesCheckboxChecked(true)
-      onSelectionChange([...query, ProgramType.SERIES])
-      return
-    }
-  }
+  useEffect(
+    () => onSelectionChange(checkboxTypeValue as ProgramType[]),
+    [onSelectionChange, checkboxTypeValue]
+  )
 
   return (
     <Flex direction={['row', 'column']} basis="12%" gap={[4, 1]}>
       <Checkbox
         colorScheme="orange"
         size="lg"
-        isChecked={isSeriesCheckboxChecked}
-        onChange={() => handleCheckboxChange(ProgramType.SERIES)}
+        isReadOnly={!checkboxTypeValue.includes(ProgramType.MOVIE)}
+        {...getCheckboxProps({ value: ProgramType.SERIES })}
       >
         Series
       </Checkbox>
       <Checkbox
         colorScheme="orange"
         size="lg"
-        isChecked={isMoviesCheckboxChecked}
-        onChange={() => handleCheckboxChange(ProgramType.MOVIE)}
+        isReadOnly={!checkboxTypeValue.includes(ProgramType.SERIES)}
+        {...getCheckboxProps({ value: ProgramType.MOVIE })}
       >
         Movie
       </Checkbox>
