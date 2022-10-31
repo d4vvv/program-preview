@@ -14,25 +14,28 @@ export const IMDbSort: React.FC<IMDbSortProps> = ({
   isDisabled,
 }) => {
   const onSortButtonClick = () => {
-    if (sort === IMDbSortType.NONE) {
-      onSortChange(IMDbSortType.DESC)
-      return
+    switch (sort) {
+      case IMDbSortType.NONE:
+        onSortChange(IMDbSortType.DESC)
+        return
+      case IMDbSortType.DESC:
+        onSortChange(IMDbSortType.ASC)
+        return
+      default:
+        onSortChange(IMDbSortType.NONE)
+        return
     }
-    if (sort === IMDbSortType.DESC) {
-      onSortChange(IMDbSortType.ASC)
-      return
-    }
-    onSortChange(IMDbSortType.NONE)
   }
 
   const renderButtonIcon = () => {
-    if (sort === IMDbSortType.NONE) {
-      return
+    switch (sort) {
+      case IMDbSortType.NONE:
+        return
+      case IMDbSortType.DESC:
+        return <TriangleDownIcon />
+      default:
+        return <TriangleUpIcon />
     }
-    if (sort === IMDbSortType.DESC) {
-      return <TriangleDownIcon />
-    }
-    return <TriangleUpIcon />
   }
 
   return (
