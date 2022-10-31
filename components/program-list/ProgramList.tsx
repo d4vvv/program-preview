@@ -1,13 +1,12 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { Program } from '../types/Program'
-import { ProgramCard } from './ProgramCard'
+import { Program } from '../../types/Program'
+import { ProgramCard } from '../program-card/ProgramCard'
 
 interface ProgramListProps {
   programs: Program[]
 }
 
 export const ProgramList: React.FC<ProgramListProps> = ({ programs }) => {
-  console.log(programs)
   const renderProgramCards = () => {
     if (programs.length === 0) {
       return <Text>No results were found</Text>

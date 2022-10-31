@@ -1,6 +1,6 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { Button, Flex, Text } from '@chakra-ui/react'
-import { IMDbSortType } from '../types/IMDbSortType'
+import { IMDbSortType } from '../../types/IMDbSortType'
 
 interface IMDbSortProps {
   onSortChange(sort: IMDbSortType): void

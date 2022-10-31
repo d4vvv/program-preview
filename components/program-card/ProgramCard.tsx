@@ -1,6 +1,6 @@
 import { Box, Flex, Hide, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import { Program } from '../types/Program'
+import { Program } from '../../types/Program'
 
 const maxImageSize = 250
 

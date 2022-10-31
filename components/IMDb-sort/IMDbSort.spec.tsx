@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { render } from '../test'
-import { IMDbSortType } from '../types/IMDbSortType'
+import { render } from '../../test'
+import { IMDbSortType } from '../../types/IMDbSortType'
 import { IMDbSort } from './IMDbSort'
 
 describe('IMDbSort', () => {

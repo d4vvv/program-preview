@@ -1,6 +1,6 @@
 import { Container } from '@chakra-ui/react'
 import Head from 'next/head'
-import { ProgramPreview } from '../components/ProgramPreview'
+import { ProgramPreview } from '../components/program-preview/ProgramPreview'
 
 export default function Home() {
   return (

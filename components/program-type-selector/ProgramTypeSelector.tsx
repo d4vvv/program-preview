@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup, Flex } from '@chakra-ui/react'
-import { ProgramType } from '../types/ProgramType'
+import { ProgramType } from '../../types/ProgramType'
 
 interface ProgramTypeSelectorProps {
   onSelectionChange(query: ProgramType[]): void

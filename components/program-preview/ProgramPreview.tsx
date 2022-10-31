@@ -1,11 +1,12 @@
 import { Flex, Spinner, Text } from '@chakra-ui/react'
 import { useState } from 'react'
-import { usePrograms } from '../hooks/usePrograms'
-import { IMDbSortType } from '../types/IMDbSortType'
-import { ProgramType } from '../types/ProgramType'
-import { IMDbSort } from './IMDbSort'
-import { ProgramList } from './ProgramList'
-import { ProgramTypeSelector } from './ProgramTypeSelector'
+import { usePrograms } from '../../hooks/usePrograms'
+import { IMDbSortType } from '../../types/IMDbSortType'
+import { Program } from '../../types/Program'
+import { ProgramType } from '../../types/ProgramType'
+import { IMDbSort } from '../IMDb-sort/IMDbSort'
+import { ProgramList } from '../program-list/ProgramList'
+import { ProgramTypeSelector } from '../program-type-selector/ProgramTypeSelector'
 
 export const ProgramPreview: React.FC = () => {
   const [selectedProgramTypes, setSelectedProgramTypes] = useState([
@@ -17,15 +18,15 @@ export const ProgramPreview: React.FC = () => {
     query: selectedProgramTypes,
     sort: programSort,
   })
-  const isLoading = typeof data === 'undefined'
+  const isLoading = typeof data === 'undefined' && !error
   const renderProgramList = () => {
-    if (error) {
-      return <Text>An error has occured while fetching the data.</Text>
-    }
     if (isLoading) {
       return <Spinner />
     }
-    return <ProgramList programs={data} />
+    if (error) {
+      return <Text>An error has occured while fetching the data.</Text>
+    }
+    return <ProgramList programs={data as Program[]} />
   }
 
   return (

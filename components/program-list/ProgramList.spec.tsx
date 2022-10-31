@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '../test'
+import { render } from '../../test'
 import { ProgramList } from './ProgramList'
 
 const mockProgramList = [
