@@ -2,6 +2,14 @@
 
 The app can be run by running commands “**pnpm install**” and “**pnpm run dev**”.
 
+# Environmental setup
+
+You have to create a file .env in the root directory and provide the required values. You can find the list of values in the file .env.example.
+
+```
+NEXT_PUBLIC_API_ADDRESS = https://api.example
+```
+
 # App description
 
 Presented app is a simple program list preview.

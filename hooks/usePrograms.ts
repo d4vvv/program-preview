@@ -11,12 +11,9 @@ interface UseProgramsProps {
 
 export const usePrograms = ({ query, sort }: UseProgramsProps) => {
   const { data, ...swr } = useSWR<FetchResponse>(
-    `https://stage-api-frontend.tv.nu/programs?orderBy=views&programType=${query.join(
-      ','
-    )}`,
+    `/programs?orderBy=views&programType=${query.join(',')}`,
     null
   )
-
   const sorted = useMemo(() => {
     if (!data) {
       return undefined
