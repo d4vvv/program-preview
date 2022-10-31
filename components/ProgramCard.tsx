@@ -14,6 +14,9 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
       ? 'No data'
       : program.playProviders.map((provider) => provider.name).join(', ')
 
+  const filterDuplicateGenres = (genres: string[]) =>
+    genres.filter((genre, idx) => program.genres.indexOf(genre) === idx)
+
   const getImageWithSize = (width: number) => {
     return (
       <Image
@@ -54,9 +57,7 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
         </Flex>
         <Hide below="lg">
           <Text textTransform="uppercase">
-            {program.genres
-              .filter((genre, idx) => program.genres.indexOf(genre) === idx)
-              .join(', ')}
+            {filterDuplicateGenres(program.genres).join(', ')}
           </Text>
           <Text pt={[0, 0, 4]} fontSize="lg">
             Streaming: {playProvidersList}

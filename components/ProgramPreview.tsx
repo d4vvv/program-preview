@@ -1,30 +1,31 @@
 import { Flex, Spinner, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { usePrograms } from '../hooks/usePrograms'
-import { ProgramTypeSelector } from './ProgramTypeSelector'
+import { IMDbSortType } from '../types/IMDbSortType'
+import { ProgramType } from '../types/ProgramType'
 import { IMDbSort } from './IMDbSort'
 import { ProgramList } from './ProgramList'
-import { ProgramTypes } from '../types/ProgramTypes'
-import { Program } from '../types/Program'
+import { ProgramTypeSelector } from './ProgramTypeSelector'
 
 export const ProgramPreview: React.FC = () => {
-  const [query, setQuery] = useState([ProgramTypes.MOVIE, ProgramTypes.SERIES])
-  const { data, error } = usePrograms({ query })
-  const [displayedPrograms, setDisplayedPrograms] = useState<[] | Program[]>([])
-  useEffect(() => setDisplayedPrograms(data?.data), [data])
-
+  const [selectedProgramTypes, setSelectedProgramTypes] = useState([
+    ProgramType.MOVIE,
+    ProgramType.SERIES,
+  ])
+  const [programSort, setProgramSort] = useState(IMDbSortType.NONE)
+  const { data, error } = usePrograms({
+    query: selectedProgramTypes,
+    sort: programSort,
+  })
+  const isLoading = typeof data === 'undefined'
   const renderProgramList = () => {
-    if (
-      (typeof data === 'undefined' ||
-        typeof displayedPrograms === 'undefined') &&
-      !error
-    ) {
-      return <Spinner />
-    }
     if (error) {
       return <Text>An error has occured while fetching the data.</Text>
     }
-    return <ProgramList programs={displayedPrograms} />
+    if (isLoading) {
+      return <Spinner />
+    }
+    return <ProgramList programs={data} />
   }
 
   return (
@@ -37,12 +38,17 @@ export const ProgramPreview: React.FC = () => {
         <Text fontSize="4xl" pb={[2, 4]}>
           Program preview
         </Text>
-        {data && (
-          <IMDbSort programs={data.data} onSortChange={setDisplayedPrograms} />
-        )}
+        <IMDbSort
+          sort={programSort}
+          onSortChange={setProgramSort}
+          isDisabled={isLoading}
+        />
       </Flex>
       <Flex direction={['column', 'column', 'row']} gap="4" w="100%">
-        <ProgramTypeSelector query={query} onSelectionChange={setQuery} />
+        <ProgramTypeSelector
+          query={selectedProgramTypes}
+          onSelectionChange={setSelectedProgramTypes}
+        />
         {renderProgramList()}
       </Flex>
     </div>

@@ -1,10 +1,10 @@
 import { Checkbox, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
-import { ProgramTypes } from '../types/ProgramTypes'
+import { ProgramType } from '../types/ProgramType'
 
 interface ProgramTypeSelectorProps {
-  query: ProgramTypes[]
-  onSelectionChange(query: ProgramTypes[]): void
+  query: ProgramType[]
+  onSelectionChange(query: ProgramType[]): void
 }
 
 export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
@@ -15,10 +15,10 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
   const [isMoviesCheckboxChecked, setMoviesCheckboxChecked] = useState(true)
 
   const handleCheckboxChange = (
-    type: ProgramTypes.MOVIE | ProgramTypes.SERIES
+    type: ProgramType.MOVIE | ProgramType.SERIES
   ) => {
     if (isSeriesCheckboxChecked && isMoviesCheckboxChecked) {
-      if (type === ProgramTypes.MOVIE) {
+      if (type === ProgramType.MOVIE) {
         setMoviesCheckboxChecked(false)
       } else {
         setSeriesCheckboxChecked(false)
@@ -26,14 +26,14 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
       onSelectionChange(query.filter((element) => element !== type))
       return
     }
-    if (type === ProgramTypes.MOVIE && isSeriesCheckboxChecked) {
+    if (type === ProgramType.MOVIE && isSeriesCheckboxChecked) {
       setMoviesCheckboxChecked(true)
-      onSelectionChange([...query, ProgramTypes.MOVIE])
+      onSelectionChange([...query, ProgramType.MOVIE])
       return
     }
-    if (type === ProgramTypes.SERIES && isMoviesCheckboxChecked) {
+    if (type === ProgramType.SERIES && isMoviesCheckboxChecked) {
       setSeriesCheckboxChecked(true)
-      onSelectionChange([...query, ProgramTypes.SERIES])
+      onSelectionChange([...query, ProgramType.SERIES])
       return
     }
   }
@@ -44,7 +44,7 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
         colorScheme="orange"
         size="lg"
         isChecked={isSeriesCheckboxChecked}
-        onChange={() => handleCheckboxChange(ProgramTypes.SERIES)}
+        onChange={() => handleCheckboxChange(ProgramType.SERIES)}
       >
         Series
       </Checkbox>
@@ -52,7 +52,7 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
         colorScheme="orange"
         size="lg"
         isChecked={isMoviesCheckboxChecked}
-        onChange={() => handleCheckboxChange(ProgramTypes.MOVIE)}
+        onChange={() => handleCheckboxChange(ProgramType.MOVIE)}
       >
         Movie
       </Checkbox>

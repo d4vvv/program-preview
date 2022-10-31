@@ -1,61 +1,35 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
 import { Button, Flex, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import { IMDbSortTypes } from '../types/IMDbSortTypes'
-
-import { Program } from '../types/Program'
+import { IMDbSortType } from '../types/IMDbSortType'
 
 interface IMDbSortProps {
-  onSortChange(programs: Program[]): void
-  programs: Program[]
+  onSortChange(sort: IMDbSortType): void
+  sort: IMDbSortType
+  isDisabled: boolean
 }
 
 export const IMDbSort: React.FC<IMDbSortProps> = ({
   onSortChange,
-  programs,
+  sort,
+  isDisabled,
 }) => {
-  const [currentSorting, setCurrentSorting] = useState(IMDbSortTypes.NONE)
-  useEffect(() => setCurrentSorting(IMDbSortTypes.NONE), [programs])
-
-  const sortAscending = () =>
-    onSortChange(
-      [...programs].sort(
-        (current, next) =>
-          parseFloat(current.imdb?.rating ?? '0') -
-          parseFloat(next.imdb?.rating ?? '0')
-      )
-    )
-
-  const sortDescending = () =>
-    onSortChange(
-      [...programs].sort((current, next) =>
-        parseFloat(current.imdb?.rating ?? '0') >
-        parseFloat(next.imdb?.rating ?? '0')
-          ? -1
-          : 1
-      )
-    )
-
   const onSortButtonClick = () => {
-    if (currentSorting === IMDbSortTypes.NONE) {
-      setCurrentSorting(IMDbSortTypes.DESC)
-      sortDescending()
+    if (sort === IMDbSortType.NONE) {
+      onSortChange(IMDbSortType.DESC)
       return
     }
-    if (currentSorting === IMDbSortTypes.DESC) {
-      setCurrentSorting(IMDbSortTypes.ASC)
-      sortAscending()
+    if (sort === IMDbSortType.DESC) {
+      onSortChange(IMDbSortType.ASC)
       return
     }
-    setCurrentSorting(IMDbSortTypes.NONE)
-    onSortChange([...programs])
+    onSortChange(IMDbSortType.NONE)
   }
 
   const renderButtonIcon = () => {
-    if (currentSorting === IMDbSortTypes.NONE) {
+    if (sort === IMDbSortType.NONE) {
       return
     }
-    if (currentSorting === IMDbSortTypes.DESC) {
+    if (sort === IMDbSortType.DESC) {
       return <TriangleDownIcon />
     }
     return <TriangleUpIcon />
@@ -63,7 +37,7 @@ export const IMDbSort: React.FC<IMDbSortProps> = ({
 
   return (
     <Flex align="center" pb={[2, 0]}>
-      <Button onClick={onSortButtonClick}>
+      <Button onClick={onSortButtonClick} isDisabled={isDisabled}>
         <Text pr={2}>Sort by IMDb</Text>
         {renderButtonIcon()}
       </Button>
