@@ -30,7 +30,14 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
   }
 
   return (
-    <Flex gap={6} minW="100%" boxShadow="lg" p="4" rounded="md">
+    <Flex
+      gap={6}
+      minW="100%"
+      boxShadow="lg"
+      p="4"
+      rounded="md"
+      data-testid="programCard"
+    >
       <Box
         w={['150px', '250px']}
         position="relative"

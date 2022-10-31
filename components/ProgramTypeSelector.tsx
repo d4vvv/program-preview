@@ -18,6 +18,7 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
       <Flex direction={['row', 'column']} basis="12%" gap={[4, 1]}>
         <Checkbox
           colorScheme="orange"
+          data-testid="seriesCheckbox"
           size="lg"
           value={ProgramType.SERIES}
           isDisabled={!selectedProgramTypes.includes(ProgramType.MOVIE)}
@@ -26,6 +27,7 @@ export const ProgramTypeSelector: React.FC<ProgramTypeSelectorProps> = ({
         </Checkbox>
         <Checkbox
           colorScheme="orange"
+          data-testid="movieCheckbox"
           size="lg"
           value={ProgramType.MOVIE}
           isDisabled={!selectedProgramTypes.includes(ProgramType.SERIES)}
