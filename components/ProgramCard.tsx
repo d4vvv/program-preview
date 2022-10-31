@@ -9,11 +9,10 @@ interface ProgramCardProps {
 }
 
 export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
-  console.log(program.genres)
   const playProvidersList =
     program.playProviders.length === 0
       ? 'No data'
-      : program.playProviders.join(', ')
+      : program.playProviders.map((provider) => provider.name).join(', ')
 
   const getImageWithSize = (width: number) => {
     return (
@@ -59,7 +58,9 @@ export const ProgramCard: React.FC<ProgramCardProps> = ({ program }) => {
               .filter((genre, idx) => program.genres.indexOf(genre) === idx)
               .join(', ')}
           </Text>
-          <Text fontSize="lg">Streaming: {playProvidersList}</Text>
+          <Text pt={[0, 0, 4]} fontSize="lg">
+            Streaming: {playProvidersList}
+          </Text>
         </Hide>
       </Flex>
     </Flex>

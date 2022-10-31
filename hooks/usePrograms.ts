@@ -1,8 +1,8 @@
 import useSWR from 'swr'
-import { ProgramTypesEnum } from '../types/ProgramTypesEnum'
+import { ProgramTypes } from '../types/ProgramTypes'
 
 interface useProgramsProps {
-  query: ProgramTypesEnum[]
+  query: ProgramTypes[]
 }
 
 export const usePrograms = ({ query }: useProgramsProps) => {
