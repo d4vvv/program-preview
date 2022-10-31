@@ -13,4 +13,4 @@ I have also prepared basic **unit tests** for the components with **Jest** and *
 
 In the future the app could be expanded with **more filtration options** apart from “Movie” and “Series”. **Pagination** could also be added so that it is possible to see more results in a comfortable way. Addition of **more sorting options** would also be a useful feature.
 
-As in terms of code - more **unit** and **end to end tests** could be added to ensure proper app functionality now and when the app would be further expanded.
+As in terms of code - more **unit tests** and **end to end tests** could be added to ensure proper app functionality now and when the app would be further expanded.
