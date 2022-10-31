@@ -8,7 +8,7 @@ export interface Program {
   imagePortrait: string
   imageLandscape: string
   playProviders: PlayProvider[]
-  imdb?: IIMDb
+  imdb?: IIMDb | null
   type: string
   programType: string
   reviews: any[]

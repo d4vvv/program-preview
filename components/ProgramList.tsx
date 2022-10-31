@@ -7,6 +7,7 @@ interface ProgramListProps {
 }
 
 export const ProgramList: React.FC<ProgramListProps> = ({ programs }) => {
+  console.log(programs)
   const renderProgramCards = () => {
     if (programs.length === 0) {
       return <Text>No results were found</Text>
